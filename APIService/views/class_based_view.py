@@ -1,34 +1,23 @@
-from django.shortcuts import render
-
 # Create your views here.
-from django.views.generic import ListView
-from rest_framework.views import APIView
 from rest_framework.response import Response
-
-from APIService.models import Person
+from rest_framework.views import APIView
 
 
 class Index(APIView):
-    def get(self, request):
+
+    def get(self, request, id=0):
         return Response({
             "code": 200,
             "message": "ok",
-            "data": "get success"
+            "data": "get id: {}".format(id)
         })
 
     def post(self, request):
-        data = None
-        if request.content_type == 'application/json':
-            data = request.data
-        elif request.content_type == 'application/x-www-form-urlencoded':
-            data = request.POST
-
-
-        if data:
+        if request.data:
             return Response({
                 "code": 200,
                 "message": "ok",
-                "data": data
+                "data": request.data
             })
         else:
             return Response({
@@ -40,7 +29,7 @@ class Index(APIView):
         return Response({
             "code": 200,
             "message": "ok",
-            "data": "put success"
+            "data": request.data
         })
 
     def delete(self, request):

@@ -1,7 +1,9 @@
 from django.urls import path
 
-from . import views
+from .views.class_based_view import Index
+
 
 urlpatterns = [
-    path('test/', views.Index.as_view(), name='index'),
+    path('', Index.as_view(), name='index'),
+    path('<int:id>', Index.as_view(), name='index')
 ]
